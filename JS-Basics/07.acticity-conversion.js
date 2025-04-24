@@ -3,12 +3,12 @@
 
 //Part 1: Predict the Output
 
-//console.log("4" + 3);   //  43
-/* console.log("4" - 3);   // 1
-console.log("6" * "2"); // 12
-console.log(8 + "2");   // 82
-console.log("10" / "2"); // 5
-console.log("5" + "5"); // 55 */
+console.log("4" + 3);   
+console.log("4" - 3);   
+console.log("6" * "2"); 
+console.log(8 + "2");   
+console.log("10" / "2"); 
+console.log("5" + "5"); 
 
 
 
