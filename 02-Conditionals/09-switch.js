@@ -31,7 +31,8 @@ switch (expression) {
  */
 
 
-let role = user; 
+let role = 'user'; 
+
 if(role==="admin") {
     console.log('You have full access');
 } else if(role === "sub admin" ) {
@@ -42,20 +43,17 @@ if(role==="admin") {
     console.log("You only have to access to consume content");
 }
 
-//same in ternary
+//same in switch
 switch(role) {
-    case "admin":
-        console.log("You have full access");
-        break;
-    case "sub admin":
-        console.log("You have access to create/delete");
-        break;
-    case "teacher":
-        console.log("You have access to create/delete tests");
-        break;
-    case "user":
-        console.log("You only have to access to consume content");
-        break;
-    default:
-        console.log("Invalid role");
+  case "admin":
+    console.log("You have full access");
+    break;
+  case "sub-admin" :
+    console.log("you have access to create/delete courses")
+    break;
+  default:
+    console.log('You have no access')
 }
+
+
+    

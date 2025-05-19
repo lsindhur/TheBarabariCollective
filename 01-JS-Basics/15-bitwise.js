@@ -3,6 +3,18 @@
 //AND, OR, XOR truth tables 
 //3 activities
 
+console.log(true && true) //true
+console.log(true || false) //true
+console.log(10 && 5 ); //5
+console.log(10 && 5 && 6); //6
+//falsy values = ' ',false, null, 0, undefined
+
+
+
+//console.log(10&5);
+//console.log(10|5);
+
+
 
 //truth table
 
@@ -12,20 +24,33 @@
 //0 0 0
 //1 0 0
 
-//console.log(10 & 5);
+console.log(10 & 5);
 
 //binary representation of 10 and 5
 
-//64 32 16 8 4 2 1
-
+//64 32 16 8 4 2 1   
+//0  0  0  1 0 1 0 = 10
+//0  0  0  0 1 0 1 = 5
+//0  0  0  0 0 0 0 = 0
 
 
 
 //activity
 
-//console.log(12&4);
+//console.log(12|4);
+
+
+//16 8 4 2 1  //12-8 //4
+//0  1 1 0 0 = 12
+//0  0 1 0 0 = 4
+//0  1 1 0 0 = 12
+
+
+
+
+
 //console.log(6&2);
-//console.log(10&&100);
+
 
 //bitwise OR
 // A B A|B
