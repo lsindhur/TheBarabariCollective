@@ -1,0 +1,46 @@
+1. Which of the following is a primitive data type in JavaScript?
+ A. Object
+ B. Array
+ C. String
+ D. Function
+✅ Answer: C
+
+2. What kind of memory is used to store non-primitive data types like objects and arrays?
+ A. Stack
+ B. Queue
+ C. Heap
+ D. Register
+✅ Answer: Heap
+
+3. What does the stack store in JavaScript memory management?
+ A. Only global variables
+ B. Function calls and primitive values
+ C. All data
+ D. Only objects and arrays
+✅ Answer: 
+
+4. If two variables point to the same object in memory, what type of data is being used?
+ A. Primitive
+ B. Reference //non primitive
+ C. Constant
+ D. Static
+✅ Answer: 
+
+5. Which statement is true about primitive values?
+ A. They are mutable
+ B. They are stored by reference
+ C. They are stored directly in the stack 
+ D. They are always strings
+✅ Answer: C
+
+Section 2: True or False
+6. let a = 10; let b = a; — Changing b will also change a.
+✅ Answer: false //why?? //because both values are same but different locations
+
+7. Objects in JavaScript are stored in the heap and accessed via references.
+✅ Answer: true
+
+
+
+
+

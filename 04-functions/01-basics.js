@@ -106,3 +106,24 @@ getArea(3,5);
 
 
 
+//why do we need a function??
+//how to call a function
+//function syntax
+//paramters
+//arguments
+
+//parameters are variables that we list in our function definition
+//arguments are the values that you pass to the function when you invoke it
+
+
+
+//return keyword //why do we need a return keyword //peculiar behaviour??
+//once return statement runs, functions stops executing 
+//switch
+//if statements
+//hoisting
+//memory allocation
+//execution phase
+
+//what is hoisting
+
