@@ -1,0 +1,70 @@
+let greeting = "hello";
+greeting[0] = "y";
+console.log(greeting);
+
+What will be logged to the console?
+a) "yello"
+b) "hello"
+c) Error
+d) undefined 
+✅ Answer: b
+//string is a primitve value. Primitives are immutable.
+
+
+let scores = [10, 20, 30];
+scores[1] = 25;
+console.log(scores);
+
+What will be the output?
+a) [10, 25, 30]
+b) [10, 20, 30]
+c) Error
+d) [25, 20, 30]
+✅ Answer: a
+//arrays are mutable
+
+
+let colors = ["red", "blue", "green"];
+colors = ["yellow", "purple"];
+console.log(colors);
+What does this line do?
+a) Modifies the existing array
+b) Changes one color in the original array
+c) Reassigns colors to a completely new array
+d) Throws an error
+✅ Answer: //c 
+
+
+
+let name = "Rehan";
+let newName = name;
+newName = "Faizan";
+console.log(name);
+What is the value of name after this code?
+a) "Faizan"
+b) "Rehan"
+c) undefined
+d) Error
+✅ Answer: b
+
+
+
+let arr1 = [1, 2, 3];
+let arr2 = arr1;
+arr2[0] = 9; //mutation //same location value got updated
+console.log(arr1); //[9,2,3]
+What will be logged?
+a) [1, 2, 3]
+b) [9, 2, 3]
+c) Error
+d) undefined
+✅ Answer: //b
+
+
+
+
+
+
+
+
+

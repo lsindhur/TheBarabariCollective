@@ -22,3 +22,7 @@ Print the final list of customers still in line. (Final line: ["Ali", "Sara", "J
 
 //Write a function serveNextCustomer(line) that removes the first customer from the line
 //and returns a message like "Served John. X customers remaining."
+
+
+
+
