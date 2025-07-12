@@ -1,0 +1,48 @@
+1. Universal
+-> font-family: "Arial", sans-serif;
+-> apply reset for margin, padding and box sizing
+
+
+2. Body
+-> background color is background: linear-gradient(45deg, #1a1a2e, #16213e);
+-> font color is  color: #fff;
+-> Apply flex to bring the below div mentioned in point 3
+to the center of the page
+
+3. Div which contains the heading, time, date and the toggle button
+-> background: rgba(0, 0, 0, 0.5);
+-> add box shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+-> add border radius 10px;
+-> add backdrop filter: blur(5px);
+-> padding: 2rem;
+
+4. h1 
+-> color: #e94560;
+-> font size is 1.8rem;
+-> add margin bottom of 2 rem;
+
+5. time Div
+->  font-size: 4rem;
+-> margin-bottom: 1rem;
+-> text-shadow: 0 0 10px rgba(233, 69, 96, 0.7);
+
+6. date Div
+-> font-size: 1.5rem;
+-> margin-bottom: 2rem;
+-> color: #dadada;
+
+7. toggle button 
+->  background: #e94560;
+-> font-size: 1rem;
+-> padding: 10px 20px;
+-> transition: all 0.3s ease;
+-> border: none;
+-> border-radius: 5px;
+-> color: white;
+
+
+8. toggle button on hover
+->  background: #cf3b54;
+-> transform: scale(1.05);
+
+
