@@ -1,0 +1,19 @@
+//imagine you went for breakfast and ordered dosa at the counter
+//the receptionist gives you a token which is a promise that they will deliver the ordered
+
+//the promise can result in two outcomes
+
+//either the restaurant gets you the dosa and fullfills their promise
+//or due to some reason, they are unable to deliver dosa, they will cancel it
+//or in other words, reject their promise
+
+//so now even in JS, a promise is something like that
+//A Promise in JavaScript is an object that represents the eventual completion (or failure) of an asynchronous task.
+
+.............................
+
+//okay first let me ask how many of you understood what is a callback hell?
+//callback hells represents callbacks within callbacks making the whole code harder to read
+
+
+

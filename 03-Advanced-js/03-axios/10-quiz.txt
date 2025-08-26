@@ -1,0 +1,56 @@
+Q1. Conceptual
+What is the main difference between Promise chaining and Promise.all?
+
+(a) Promise chaining runs tasks in sequence, Promise.all runs them in parallel
+
+(b) Promise chaining always fails, Promise.all always succeeds
+
+(c) Both are identical ways of handling promises
+
+(d) Promise chaining only works with async/await
+
+
+
+Q2. Code Understanding
+What will be logged to the console?
+
+Promise.resolve(10)
+  .then(num => num * 2)
+  .then(num => Promise.resolve(num + 5))
+  .then(value => console.log(value));
+
+(a) 10
+
+(b) 20
+
+(c) 25
+
+(d) Promise {25}
+
+
+
+
+Q3. Promise.all Behavior
+Which of the following statements about Promise.all is TRUE?
+
+(a) It resolves as soon as the first promise resolves.
+
+(b) It rejects immediately if any promise rejects.
+
+(c) It waits for all promises, even if one rejects.
+
+(d) It runs promises strictly one after another.
+
+
+
+
+Q4. Real-life Usage
+Suppose you need to fetch user data first, then use the user.id to fetch their posts. Which is the correct way?
+
+(a) Using Promise chaining
+
+(b) Using Promise.all
+
+(c) Both would work equally well
+
+(d) Neither, you must use callbacks
