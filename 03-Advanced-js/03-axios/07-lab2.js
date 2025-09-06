@@ -2,39 +2,36 @@
 // I want name, followers, following of all the students in the group
 // but get the details in the same order of sorted array
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import axios from "axios"
+const usernames = ['lsindhur','vinitha264','mojombo'];
+const sortedArray = usernames.sort() 
 
-const usernames = ['lsindhur','fawaz-exe','mojombo']
+//console.log(sortedArray); //[ 'lsindhur', 'mojombo', 'vinitha264' ]
 
-const sortedArray = usernames.sort() //'fawaz-exe', 'lsindhur', 'mojombo' 
+
+//lets create that array of promises
+const promises = sortedArray.map(username => axios.get(`https://api.github.com/users/${username}`))
+console.log(promises);
+
+Promise.all(promises)
+.then((responses) => {
+    responses.forEach((responseObj) => {
+        console.log(responseObj.data.name);
+         console.log(responseObj.data.followers);
+          console.log(responseObj.data.following);
+    })
+})
+.catch(err => {
+    console.log(err)
+})
+
+
 
 
 /*
 
-Promise.all() is a method in JavaScript that allows you to run multiple promises in parallel and wait until all of them are settled (fulfilled or rejected).
+Promise.all() is a method in JavaScript that allows you to run multiple promises in parallel and 
+wait until all of them are settled (fulfilled or rejected).
 
 It takes an array (or iterable) of promises and returns a single promise:
 
@@ -46,7 +43,8 @@ It takes an array (or iterable) of promises and returns a single promise:
 
 ❌ If any promise rejects, the returned promise immediately rejects with the reason of the first rejection
 
-👉 Use Promise.all() when you want all promises to finish successfully before moving on, and you’re okay with the whole thing failing if even one fails.
+👉 Use Promise.all() when you want all promises to finish successfully before moving on, and you’re okay with the whole 
+thing failing if even one fails.
 */
 
 

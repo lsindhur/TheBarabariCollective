@@ -23,6 +23,33 @@ each object inside the array should look like this
 */
 
 
+axios.get('https://gist.githubusercontent.com/Shadid12/18642d735214920921f4f470300be11e/raw/6dcf7b456c40f110c313bbb1678474b01756bc1a/restaurants.json')
+.then((res) => {
+    const restaurants = res.data;
+    //console.log(restaurants)
+    
+    const newRestaurantsArray = restaurants.map(restaurantObj => {
+
+        let gradesArr = restaurantObj.grades; //represent grades array
+        let sum = 0;
+
+        gradesArr.forEach(grade => {
+            sum += grade; 
+        });
+
+        let avg = sum/gradesArr.length
+
+        const newObject = {
+            name : restaurantObj.name,
+            gradeAvg: avg, //restaurantObj.grades //gradeAvg : 
+        }
+        return newObject;
+    })
+    console.log(newRestaurantsArray);
+})
+.catch(() => {
+    
+}) 
 
 
 
@@ -70,52 +97,64 @@ Hint: use foreach to calculate sum of the grades inside the array and then divid
 
 
 
-/* axios.get('https://gist.githubusercontent.com/Shadid12/18642d735214920921f4f470300be11e/raw/6dcf7b456c40f110c313bbb1678474b01756bc1a/restaurants.json')
-    .then(res => {
-        const restaurantsData = res.data
-        const restaurantsArray = restaurantsData.map(ele => {
-            
-            const restaurantObject = {
-                name : ele.name,
-                grades: ele.grades
-            }
-            
-            return restaurantObject
-            
-        })
 
-        console.log(restaurantsArray);
+
+/* axios.get('https://gist.githubusercontent.com/Shadid12/18642d735214920921f4f470300be11e/raw/6dcf7b456c40f110c313bbb1678474b01756bc1a/restaurants.json')
+.then(res => {
+    const restaurntsData = res.data
+
+    const restaurantsArray = restaurntsData.map(ele=> {
+        const restaurantObject = {
+            name : ele.name,
+            grades: ele.grades
+        }
+        return restaurantObject
     })
-    .catch(error => {
-        console.log(error)
+    console.log(restaurantsArray)
+})
+    .catch(err => {
+        console.log(err)
     })
+ */
+
+/* axios.get('https://gist.githubusercontent.com/Shadid12/18642d735214920921f4f470300be11e/raw/6dcf7b456c40f110c313bbb1678474b01756bc1a/restaurants.json')
+.then(res => {
+    const restaurntsData = res.data
+
+    const restaurantsArray = restaurntsData.map(ele=> {
+
+        //calculat the sum
+        let sum = 0;
+        ele.grades.forEach(grade => {
+            sum+= grade;
+        });
+
+        let gradeAvg = sum/ele.grades.length
+        //divide it by the length of the array
+
+        const restaurantObject = {
+            name : ele.name,
+            grades: gradeAvg
+        }
+        return restaurantObject
+    })
+    console.log(restaurantsArray)
+})
+    .catch(err => {
+        console.log(err)
+    })
+
  */
 
 
 
-/* axios.get('https://gist.githubusercontent.com/Shadid12/18642d735214920921f4f470300be11e/raw/6dcf7b456c40f110c313bbb1678474b01756bc1a/restaurants.json')
-    .then(res => {
-        const restaurantsData = res.data
-        const restaurantsArray = restaurantsData.map(ele => {
 
-            let sum = 0;
-            ele.grades.forEach(grade => {
-                sum+=grade
-            });
 
-            let avg = sum/ele.grades.length
-            
-            const restaurantObject = {
-                name : ele.name,
-                gradeAvg: avg
-            }
-            
-            return restaurantObject
-            
-        })
 
-        console.log(restaurantsArray);
-    })
-    .catch(error => {
-        console.log(error)
-    }) */
+
+
+
+
+
+
+

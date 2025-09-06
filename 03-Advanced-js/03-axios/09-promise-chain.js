@@ -1,37 +1,64 @@
-//define a function named abc() which takes age as parameter
-//the age funcction should return a promise
-//the promise should be resolved if age>18 with the message "You can vote"
-//the promise should be rejected in other cases with the message "You can not vote"
+//step 1
+//define a function named abc() which takes age as parameter and returns a promise
+//If age > 18, it calls resolve(...) → promise is fulfilled with the message "You can vote"
+//Otherwise, it calls reject(...) → promise is rejected with the message "You can not vote"
+
+//step 2
+//Call the function and start a chain
+//Now we can attach .then() calls.
+//First .then() → receives resolved value
+//Second .then() → gets previous return
+//....and so on
+
+//step 3
+//question
+
 
 function abc(age) {
-    return new Promise((res,reject) => {
+    return new Promise((resolve,reject) => {
         if(age>18) {
-            res('You can vote');
+            resolve('You can vote')
         } else {
-            reject('You can not vote');
+            reject('You can not vote')
         }
     })
 }
 
-abc(21)
-    .then(res => {
-        console.log(res);
-        return 'Where are you from?'
-    })
-    .then(res=> {
-        console.log(res);
-        return 'Who do you want to vote?'
-    })
-    .then(res => {
-        console.log(res);
-    })
-    .catch(error => {
-        console.log(error)
-    })
+abc(17)
+.then((res) => {
+    console.log(res); //you can vote
+    return 'Where are you from? '
+})
+.then(res => {
+    console.log(res); //Where are you from?
+    return 'To whom do you want to vote?'
+})
+.then(res => {
+    console.log(res) //To whom do you want to vote?
+})
+.catch(err => console.log(err))
 
 
 
-    /*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     Promise chain (.then chaining)
 
     Runs promises one after another.
@@ -45,12 +72,22 @@ abc(21)
 
 */
 
-
 //promise chaining is useful when 
 /*
 ✅ Steps happen in order.
 ✅ Useful when the next step depends on previous data.
 */
+
+
+
+    
+
+
+
+
+
+
+
 
 
 
@@ -64,4 +101,59 @@ Use Promise.all when tasks are independent and can run in parallel.
 
 */
 
-    
+
+
+
+
+/* function abc(age) {
+    return new Promise((resolve, reject) => {
+        if(age>18) {
+            resolve('You can vote')
+        } else {
+            reject('You can  not vote')
+        }
+    })
+}
+ */
+
+
+
+
+/* abc(19)
+.then(res => {
+    console.log(res)
+    return 'Where are you from?'
+})
+.then(res => {
+    console.log(res)
+    return 'To whom do you want to vote?'
+})
+.then(res => {
+    console.log(res)
+})
+.catch(err => {
+    console.log(err)
+})
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+

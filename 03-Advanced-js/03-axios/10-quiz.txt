@@ -45,7 +45,8 @@ Which of the following statements about Promise.all is TRUE?
 
 
 Q4. Real-life Usage
-Suppose you need to fetch user data first, then use the user.id to fetch their posts. Which is the correct way?
+Suppose you need to fetch user data first, 
+then use the user.id to fetch their posts. Which is the correct way?
 
 (a) Using Promise chaining
 

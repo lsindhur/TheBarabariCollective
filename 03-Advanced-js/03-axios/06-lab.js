@@ -8,8 +8,19 @@
 
 import axios from "axios"
 
-const usernames = ['lsindhur','fawaz-exe','mojombo']
+const usernames = ['lsindhur','vinitha264','mojombo'];
 
+usernames.forEach(username => {
+    axios.get(`https://api.github.com/users/${username}`)
+    .then((response) => {
+        console.log(response.data.name)
+         console.log(response.data.followers)
+          console.log(response.data.following)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+})
 
 
 
