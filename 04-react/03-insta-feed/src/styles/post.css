@@ -1,0 +1,12 @@
+ .feed {
+     border: 1px solid #ccc;
+    border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      max-width: 320px;
+}
+
+.profilePhoto {
+    width:100%;
+    border-radius: 8px;
+} 
