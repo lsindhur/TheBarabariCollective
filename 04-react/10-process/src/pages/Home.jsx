@@ -3,11 +3,11 @@ import Navbar from '../components/Navbar.jsx'
 import Search from '../components/Search.jsx'
 import Users from '../components/Users.jsx'
 
-const Home = ({users}) => {
+const Home = ({users,searchUsers}) => {
   //console.log(users)
   return (
     <>
-    <Search />
+    <Search searchUsers={searchUsers} />
     <Users users={users}/>
     </>
   )
