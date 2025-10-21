@@ -13,14 +13,16 @@ import UserPage from './pages/UserPage.jsx'
 const App = () => {
 
   const [users,setUsers] = useState([])
+  const [user,setUser] = useState('')
 
   useEffect(() => {
     try {
       const getData = async () => {
         const {data} = await axios.get('https://api.github.com/users')
+        //console.log(data)
         setUsers(data)
       }
-      getData();
+     getData();
     } catch (error) {
       console.log(error)
     }
@@ -38,7 +40,8 @@ const App = () => {
  const getUser = async (username) => {
   try {
     const {data} = await axios.get(` https://api.github.com/users/${username}`)
-    console.log(data)
+    //console.log(data)
+    setUser(data)
   } catch (error) {
     console.log(error)
   }
@@ -53,7 +56,7 @@ const App = () => {
       <Route path='/' element={<Home users={users} searchUsers={searchUsers}/>} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/about' element={<About />} />
-      <Route path='users/:username' element={<UserPage getUser={getUser}/>}/>
+      <Route path='users/:username' element={<UserPage getUser={getUser} user={user}/>}/>
     </Routes>
     </>
   )
