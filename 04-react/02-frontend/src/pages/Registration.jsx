@@ -2,6 +2,7 @@
     import '../styles/Registration.css'
     import {useAuth} from '../context/AuthContext.jsx'
     import {useNavigate} from 'react-router-dom'
+    import {authAPI} from '../services/api.js'
 
     const Registration = () => {
     
@@ -14,6 +15,8 @@
         })
 
         const {login,user} = useAuth()
+        const [isLoading, setIsLoading] = useState(false)
+          const [errorMessage, setErrorMessage] = useState('');
 
         const [errors, setErrors] = useState({})
         const navigate = useNavigate();
@@ -70,106 +73,124 @@
 
         }
 
-        const handleSubmit = (e) => {
-            e.preventDefault();
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          setErrorMessage(''); 
 
-           if(!validateForm()) return;
+          if (!validateForm()) return;
+       
+            //send the data to the backend database
+            try {
+              const response = await authAPI.register({
+                name: formData.name.trim(),
+                email: formData.email.trim().toLowerCase(),
+                password: formData.password,
+                role: formData.role,
+              });
+              console.log(response);
+              
+            } catch (error) {
+                console.log(error.message)
+            }
+          
 
-           //send the data to the backend database
             login(formData.name);
-            navigate('/')
-        }
+            navigate("/");
+         
+        };
         
 
      return (
-        <div className="register-container">
-            <div className="register-card">
-                <h2>Create Account</h2>
-                <p className="register-subtitle">Join our citizen resolution system</p>
-                
-                
-                <form className="register-form" onSubmit={handleSubmit}>
+       <div className="register-container">
+         <div className="register-card">
+           <h2>Create Account</h2>
+           <p className="register-subtitle">
+             Join our citizen resolution system
+           </p>
 
-                    {/* Name*/}
-                        <div className="form-group">
-                            <label>Full Name</label>
-                            <input 
-                            type="text"
-                            placeholder="Enter your full name"
-                            name='name'
-                            value={formData.name}
-                            onChange={handleChange}
-                            />
-                            {
-                                errors.name && <span className='error-text '>{errors.name}</span>
-                            }
-                        </div>
+           {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-                        {/* Email */}
-                        <div className="form-group">
-                            <label>Email Address</label>
-                            <input 
-                            name='email'
-                            type="email"
-                            placeholder="Enter your email address"
-                            value={formData.email}
-                             onChange={handleChange}
-                            />
-                            {
-                                errors.email && <span className='error-text '>{errors.email}</span>
-                            }
-                        </div>
+           <form className="register-form" onSubmit={handleSubmit}>
+             {/* Name*/}
+             <div className="form-group">
+               <label>Full Name</label>
+               <input
+                 type="text"
+                 placeholder="Enter your full name"
+                 name="name"
+                 value={formData.name}
+                 onChange={handleChange}
+               />
+               {errors.name && (
+                 <span className="error-text ">{errors.name}</span>
+               )}
+             </div>
 
-                        {/* Role */}
-                        <div className="form-group">
-                            <label>Role</label>
-                            <select
-                            name='role'
-                           value={formData.role}
-                            onChange={handleChange}
-                            >
-                                <option>Citizen</option>
-                                <option>Admin</option>
-                            </select>
-                        </div>
+             {/* Email */}
+             <div className="form-group">
+               <label>Email Address</label>
+               <input
+                 name="email"
+                 type="email"
+                 placeholder="Enter your email address"
+                 value={formData.email}
+                 onChange={handleChange}
+               />
+               {errors.email && (
+                 <span className="error-text ">{errors.email}</span>
+               )}
+             </div>
 
-                        {/*password */}
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input
-                            type="password"
-                            name='password'
-                            value={formData.password}
-                             onChange={handleChange}
-                            />
-                             {
-                                errors.password && <span className='error-text '>{errors.password}</span>
-                            }
-                        </div>
+             {/* Role */}
+             <div className="form-group">
+               <label>Role</label>
+               <select
+                 name="role"
+                 value={formData.role}
+                 onChange={handleChange}
+               >
+                 <option>Citizen</option>
+                 <option>Admin</option>
+               </select>
+             </div>
 
-                        {/*confirm password */}
-                        <div className="form-group">
-                            <label>Confirm Password</label>
-                            <input
-                            type="password"
-                            name='confirmPassword'
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            />
-                            {
-                                errors.confirmPassword && <span className='error-text '>{errors.confirmPassword}</span>
-                            }
-                        </div>
-                                
-                        <button className="register-btn" >Create Account</button>
-                </form>
+             {/*password */}
+             <div className="form-group">
+               <label>Password</label>
+               <input
+                 type="password"
+                 name="password"
+                 value={formData.password}
+                 onChange={handleChange}
+               />
+               {errors.password && (
+                 <span className="error-text ">{errors.password}</span>
+               )}
+             </div>
 
-                <div className="login-link">
-                        Already have an account?<a href='/login'>Sign In</a>
-                </div>
-            </div>
-        </div>
-    )
+             {/*confirm password */}
+             <div className="form-group">
+               <label>Confirm Password</label>
+               <input
+                 type="password"
+                 name="confirmPassword"
+                 value={formData.confirmPassword}
+                 onChange={handleChange}
+               />
+               {errors.confirmPassword && (
+                 <span className="error-text ">{errors.confirmPassword}</span>
+               )}
+             </div>
+
+             <button className="register-btn">Create Account</button>
+           </form>
+
+           <div className="login-link">
+             Already have an account?<a href="/login">Sign In</a>
+           </div>
+         </div>
+       </div>
+     );
     }
 
     export default Registration
