@@ -3,9 +3,11 @@ import {Routes,Route} from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import './App.css'
 
+
 //import components
 import Navbar from './components/Navbar'
 import ComplaintForm from './components/ComplaintForm'
+import MyComplaints from './components/MyComplaints'
 
 //import pages
 import Home from './pages/Home'
@@ -21,7 +23,9 @@ const App = () => {
       <Route path='/' element={<Home/>}/>
        <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Registration/>}/>
-        <Route   path="/submit-complaint" element={<ComplaintForm/>}/>
+        <Route path="/submit-complaint" element={<ComplaintForm/>}/>
+        <Route path="/my-complaints" element={<MyComplaints/>}/>
+
         <Route />
     </Routes>
      </AuthProvider>

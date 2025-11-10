@@ -16,6 +16,7 @@ const callAPI = async (endpoint,options) => {
         }
         console.log(response);
         return await response.json();
+        
     } catch (error) {
         throw new Error(error.message || 'Network error occurred');
     }

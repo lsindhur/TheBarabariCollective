@@ -78,6 +78,8 @@
           setErrorMessage(''); 
 
           if (!validateForm()) return;
+
+          setIsLoading(true)
        
             //send the data to the backend database
             try {
@@ -87,15 +89,22 @@
                 password: formData.password,
                 role: formData.role,
               });
-              console.log(response);
-              
+                console.log(response);
+
+                localStorage.setItem('token',response.token)
+                localStorage.setItem('userRole',response.role)
+                localStorage.setItem('userName',response.name)
+                localStorage.setItem('userId',response._id)
+
+                //login(formData.name);
+                navigate("/");
+
             } catch (error) {
                 console.log(error.message)
+                setErrorMessage(error.message)
+            } finally {
+                setIsLoading(false)
             }
-          
-
-            login(formData.name);
-            navigate("/");
          
         };
         
@@ -182,7 +191,7 @@
                )}
              </div>
 
-             <button className="register-btn">Create Account</button>
+             <button className="register-btn">{isLoading? "Creating Account...": "Create Account"}</button>
            </form>
 
            <div className="login-link">
