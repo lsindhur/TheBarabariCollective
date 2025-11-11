@@ -1,8 +1,10 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
+import {UNSAFE_ErrorResponseImpl, useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react';
 import '../styles/ComplaintForm.css'
+import { ComplaintAPI } from '../services/api';
+
 
 const ComplaintForm = () => {
     const navigate = useNavigate()
@@ -127,14 +129,31 @@ const ComplaintForm = () => {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
      if (!validateForm()) {
       return;
     }
-
     
+    try {
+      const formDataToSend = new FormData(); //{}
+
+      formDataToSend.append('name', formData.name.trim());
+      formDataToSend.append('ward', formData.ward.trim());
+      formDataToSend.append('location', formData.location.trim());
+      formDataToSend.append('category', formData.category);
+      formDataToSend.append('description', formData.description.trim());
+      if (formData.photo) {
+        formDataToSend.append('photo', formData.photo);
+      }
+
+
+      const response = await ComplaintAPI.createComplaint(formDataToSend)
+      console.log(response)
+    } catch (error) {
+        console.log(error.message)
+    }
 
   }
 

@@ -7,16 +7,14 @@ const callAPI = async (endpoint,options) => {
     try {
         const response = await fetch(`${baseURL}${endpoint}`,options)
 
-        console.log(response.status, response.ok);
-
         if(!response.ok) {
             const errorData = await response.json().catch(() => {})
-            console.log(errorData.message)
+            //console.log(errorData.message)
             throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
         }
-        console.log(response);
+        //console.log(response);
         return await response.json();
-        
+
     } catch (error) {
         throw new Error(error.message || 'Network error occurred');
     }
@@ -37,4 +35,25 @@ export const authAPI = {
     });
   },
 
+  login:(loginData) => {
+    return callAPI("/auth/login", {
+      method: "POST",
+      body: JSON.stringify(loginData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
 };
+
+
+export const ComplaintAPI = {
+    createComplaint : (complaintData) => {
+        return callAPI('/complaints', {
+            method: "POST",
+            body: complaintData,
+        })
+    }
+}
+

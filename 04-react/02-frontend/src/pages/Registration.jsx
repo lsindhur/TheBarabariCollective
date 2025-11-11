@@ -96,7 +96,7 @@
                 localStorage.setItem('userName',response.name)
                 localStorage.setItem('userId',response._id)
 
-                //login(formData.name);
+                login(response.name);
                 navigate("/");
 
             } catch (error) {

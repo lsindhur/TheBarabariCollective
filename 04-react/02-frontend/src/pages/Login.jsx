@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import {Link} from 'react-router-dom'
 import '../styles/Login.css'
+import { authAPI } from '../services/api.js'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext.jsx'
 
 
 const Login = () => {
@@ -10,10 +13,15 @@ const Login = () => {
     password: ''
   })
 
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const {login} = useAuth();
+  
   const [errors, setErrors] = useState({})
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
-      console.log(e.target.value);
+      //console.log(e.target.value);
       const {name,value} = e.target
       
       setFormData(prev => ({
@@ -40,11 +48,32 @@ const Login = () => {
     return Object.keys(newErrors).length === 0; //returns true if no errors
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMessage('');
 
     if(!validateCheck()) return;
+    setIsLoading(true)
+    try {
+      const response = await authAPI.login(formData)
+    //console.log(response) //response = {token:xx, user:{email,id,name,role}}
+    localStorage.setItem("token",response.token)
+    localStorage.setItem("userRole",response.user.role)
+    localStorage.setItem("userName",response.user.name)
+    localStorage.setItem("userId",response.user._id)
 
+    login(response.user.name)
+
+    
+    navigate('/my-complaints')
+    
+    } catch (error) {
+     // console.log(error.message);
+      setErrorMessage(error.message || 'Login failed. Please try again.');
+    } finally {
+      setIsLoading(false)
+    }
+    
     
   }
 
@@ -52,6 +81,8 @@ const Login = () => {
      <div className="login-container">
       <div className="login-card">
           <h2>Login to Citizen Resolution</h2>
+
+       {errorMessage && <div className="error-message">{errorMessage}</div>}
 
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="form-group">
@@ -70,7 +101,7 @@ const Login = () => {
           <span className="error-text">{errors.password}</span>
         }
          </div>
-        <button type="submit" className="login-btn">Login</button>
+        <button type="submit" className="login-btn">{isLoading? "Logging in..." :"Login"}</button>
         
       </form>
       
