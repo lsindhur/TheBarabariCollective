@@ -20,6 +20,7 @@ const Login = () => {
   const [errors, setErrors] = useState({})
   const navigate = useNavigate();
 
+  //formData = {email:"x@amazon.com",password:123}
   const handleChange = (e) => {
       //console.log(e.target.value);
       const {name,value} = e.target
@@ -55,7 +56,7 @@ const Login = () => {
     if(!validateCheck()) return;
     setIsLoading(true)
     try {
-      const response = await authAPI.login(formData)
+      const response = await authAPI.login(formData) //FormData //from the browser
     //console.log(response) //response = {token:xx, user:{email,id,name,role}}
     localStorage.setItem("token",response.token)
     localStorage.setItem("userRole",response.user.role)

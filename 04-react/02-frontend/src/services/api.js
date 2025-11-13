@@ -2,10 +2,31 @@
 
 const baseURL = 'https://citisolve-smarter-complaint-resolution.onrender.com/api'
 
+const getToken = () => {
+    const token = localStorage.getItem("token");
+    console.log('Token in local storage :', `${token? "exists" : "does not exist"}`);
+    return token;
+}
+
+
 const callAPI = async (endpoint,options) => {
 
+    //creating a copy of options object
+    const config = {
+        ...options,    
+        headers : {
+            ...options.headers
+        }
+    }
+
+     const token = getToken();
+     
+     if(token) {
+        config.headers.authorization = `Bearer ${token}`
+    } 
+
     try {
-        const response = await fetch(`${baseURL}${endpoint}`,options)
+        const response = await fetch(`${baseURL}${endpoint}`,config)
 
         if(!response.ok) {
             const errorData = await response.json().catch(() => {})
@@ -35,7 +56,7 @@ export const authAPI = {
     });
   },
 
-  login:(loginData) => {
+  login: (loginData) => {
     return callAPI("/auth/login", {
       method: "POST",
       body: JSON.stringify(loginData),
@@ -43,8 +64,7 @@ export const authAPI = {
         "Content-Type": "application/json",
       },
     });
-  }
-
+  },
 };
 
 

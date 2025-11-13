@@ -1,5 +1,5 @@
 import React from 'react'
-import {UNSAFE_ErrorResponseImpl, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import { useEffect } from 'react';
 import '../styles/ComplaintForm.css'
@@ -8,7 +8,7 @@ import { ComplaintAPI } from '../services/api';
 
 const ComplaintForm = () => {
     const navigate = useNavigate()
-      const [formData, setFormData] = useState({
+      const [complaintData, setComplaintData] = useState({
     name: '',
     ward: '',
     location: '',
@@ -18,6 +18,7 @@ const ComplaintForm = () => {
   });
 
    const [errors, setErrors] = useState({});
+   const [isLoading, setIsLoading] = useState(false)
 
      // State for error/success messages
   const [errorMessage, setErrorMessage] = useState('');
@@ -36,7 +37,7 @@ const ComplaintForm = () => {
   ];
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setComplaintData(prev => ({
         ...prev,
         [e.target.name] : e.target.value
     }))
@@ -76,7 +77,7 @@ const ComplaintForm = () => {
          return;
       } 
         //if image size is valid, update state
-        setFormData(prev => ({
+        setComplaintData(prev => ({
           ...prev,
           photo : e.target.files[0]
         }))
@@ -93,31 +94,31 @@ const ComplaintForm = () => {
     const newErrors = {};
 
     // Name validation
-    if (!formData.name.trim()) {
+    if (!complaintData.name.trim()) {
       newErrors.name = 'Name is required';
-    } else if (formData.name.trim().length < 2) {
+    } else if (complaintData.name.trim().length < 2) {
       newErrors.name = 'Name must be at least 2 characters long';
     }
 
     // Ward validation
-    if (!formData.ward.trim()) {
+    if (!complaintData.ward.trim()) {
       newErrors.ward = 'Ward is required';
     }
 
     // Location validation
-    if (!formData.location.trim()) {
+    if (!complaintData.location.trim()) {
       newErrors.location = 'Location is required';
     }
 
     // Category validation
-    if (!formData.category) {
+    if (!complaintData.category) {
       newErrors.category = 'Please select a category';
     }
 
     // Description validation
-    if (!formData.description.trim()) {
+    if (!complaintData.description.trim()) {
       newErrors.description = 'Description is required';
-    } else if (formData.description.trim().length < 10) {
+    } else if (complaintData.description.trim().length < 10) {
       newErrors.description = 'Description must be at least 10 characters long';
     }
 
@@ -131,28 +132,42 @@ const ComplaintForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setErrorMessage('')
+    setSuccessMessage('')
 
      if (!validateForm()) {
       return;
     }
+
+    setIsLoading(true)
     
     try {
-      const formDataToSend = new FormData(); //{}
+      const formDataToSend = new FormData(); //{} //but it will have some special qualities
 
-      formDataToSend.append('name', formData.name.trim());
-      formDataToSend.append('ward', formData.ward.trim());
-      formDataToSend.append('location', formData.location.trim());
-      formDataToSend.append('category', formData.category);
-      formDataToSend.append('description', formData.description.trim());
-      if (formData.photo) {
-        formDataToSend.append('photo', formData.photo);
+      formDataToSend.append('name', complaintData.name.trim());
+      formDataToSend.append('ward', complaintData.ward.trim());
+      formDataToSend.append('location', complaintData.location.trim());
+      formDataToSend.append('category', complaintData.category);
+      formDataToSend.append('description', complaintData.description.trim());
+      if (complaintData.photo) {
+        formDataToSend.append('photo', complaintData.photo);
       }
 
 
       const response = await ComplaintAPI.createComplaint(formDataToSend)
       console.log(response)
+
+       setSuccessMessage('Complaint submitted successfully! Redirecting to your complaints...');
+
+        setTimeout(() => {
+        navigate('/my-complaints');
+      }, 10000);
+
     } catch (error) {
         console.log(error.message)
+        setErrorMessage(error.message || "Failed to submit complaint. Please try again.")
+    } finally {
+      setIsLoading(false)
     }
 
   }
@@ -179,7 +194,7 @@ const ComplaintForm = () => {
               type="text"
               id="name"
               name="name"
-              value={formData.name}
+              value={complaintData.name}
               onChange={handleChange}
               className={errors.name ? 'error' : ''}
               placeholder="Enter your full name"
@@ -194,7 +209,7 @@ const ComplaintForm = () => {
               type="text"
               id="ward"
               name="ward"
-              value={formData.ward}
+              value={complaintData.ward}
               onChange={handleChange}
               className={errors.ward ? 'error' : ''}
               placeholder="Enter your ward number or name"
@@ -209,7 +224,7 @@ const ComplaintForm = () => {
               type="text"
               id="location"
               name="location"
-              value={formData.location}
+              value={complaintData.location}
               onChange={handleChange}
               className={errors.location ? 'error' : ''}
               placeholder="Enter specific location (street, landmark, etc.)"
@@ -223,9 +238,9 @@ const ComplaintForm = () => {
             <select
               id="category"
               name="category"
-              value={formData.category}
+              value={complaintData.category}
               onChange={handleChange}
-              className={`${errors.category ? 'error' : ''} ${formData.category ? 'has-value' : ''}`}
+              className={`${errors.category ? 'error' : ''} ${complaintData.category ? 'has-value' : ''}`}
             >
               <option value="">Select a category</option>
               {categories.map(category => (
@@ -236,9 +251,9 @@ const ComplaintForm = () => {
             </select>
 
             {/* Show selected category */}
-            {formData.category && (
+            {complaintData.category && (
               <div className="selected-category">
-                Selected: <strong>{formData.category}</strong>
+                Selected: <strong>{complaintData.category}</strong>
               </div>
             )}
 
@@ -251,7 +266,7 @@ const ComplaintForm = () => {
             <textarea
               id="description"
               name="description"
-              value={formData.description}
+              value={complaintData.description}
               onChange={handleChange}
               className={errors.description ? 'error' : ''}
               placeholder="Describe the issue in detail..."
@@ -292,7 +307,9 @@ const ComplaintForm = () => {
               className="btn btn-primary" 
               
             >
-             Submit Complaint
+             {
+              isLoading? "Submitting" : "Submit Complaint"
+             }
             </button>
           </div>
         </form>
