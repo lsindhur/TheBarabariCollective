@@ -9,7 +9,7 @@ const getToken = () => {
 }
 
 
-const callAPI = async (endpoint,options) => {
+const callAPI = async (endpoint,options={}) => {
 
     //creating a copy of options object
     const config = {
@@ -74,6 +74,10 @@ export const ComplaintAPI = {
             method: "POST",
             body: complaintData,
         })
+    },
+
+    getComplaints : () => {
+        return callAPI('/complaints')
     }
 }
 
